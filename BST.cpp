@@ -2,15 +2,23 @@
 using namespace std;
 
 class Node{
-public:
+private:
     Node* left ;
     int x ;
     Node* right ;
+public:
     Node(int val)
     {
         x = val ;
         left = right = nullptr ;
     }
+
+    int getX(){return x;}
+    void setX(int x){this->x = x;}
+    Node* getleft(){return left;}
+    void setleft(Node* left){this->left = left;}
+    Node* getright(){return right;}
+    void setX(Node* right){this->right = right;}
 };
 void insert(Node *&root,int val)
 {
