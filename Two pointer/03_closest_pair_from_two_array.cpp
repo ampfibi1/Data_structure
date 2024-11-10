@@ -7,6 +7,13 @@ int main(){
     int a[n] ; for(int &x:a) cin >> x ; 
     int b[n] ; for(int &x:b) cin >> x ; 
     int x; cin >> x ; 
+    /*
+        n = 5
+        1 2 3 4 5
+        5 7 8 9 10
+        15
+        5
+    */
 
     //two pointer algo
     int l = 0 ; 
