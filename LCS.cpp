@@ -1,105 +1,38 @@
 #include<iostream>
 #include<string.h>
-using namespace std;
- 
-int main()
-{
-    int m, n, i, j;
+using namespace std; 
+
+int maxEq(int a, int b) {
+    return a >= b ? a : b;
+}
+
+int main() {
     char X[100], Y[100];
-    cout << "Enter the first string: ";
-    cin >> X;
-    cout << "Enter second string: ";
-    cin >> Y;
- 
-    m = strlen(X);
-    n = strlen(Y);
- 
-    cout << "Length 1: " << m << endl;
-    cout << "Length 2: " << n << endl;
- 
-    int c[m+1][n+1];
- 
-    for(i=0; i<=m; i++)
-    {
-        c[i][0] = 0;
-    }
- 
-    for(i=0; i<=n; i++)
-    {
-        c[0][i] = 0;
-    }
- 
-    /*cout << "Matrix:" <<endl;
- 
-    for(i=0; i<=m; i++)
-    {
-        for(j=0; j<=n; j++)
-        {
-            cout << c[i][j] << "   ";
-        }
-        cout << endl;
-    }*/
- 
- 
-    for(i=1; i<=m; i++)
-    {
-        for(j=1; j<=n; j++)
-        {
-            if(X[i-1] == Y[j-1])
-            {
-                c[i][j] = c[i-1][j-1] + 1;
-            }
-            else
-            {
-                if(c[i][j-1] >= c[i-1][j])
-                {
-                    c[i][j] = c[i][j-1];
-                }
-                else
-                {
-                    c[i][j] = c[i-1][j];
-                }
-            }
+    cin >> X >> Y; 
+
+    int n = strlen(X), m = strlen(Y);
+    int C[m+1][n+1];
+    
+    for (int i = 0; i <= m; ++i) C[i][0] = 0;
+    for (int i = 0; i <= n; ++i) C[0][i] = 0;
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            C[i][j] = X[i-1] == Y[j-1] ? C[i-1][j-1] + 1 : maxEq(C[i][j-1], C[i-1][j]);
         }
     }
- 
- 
-    cout << "Matrix:" <<endl;
- 
-    for(i=0; i<=m; i++)
-    {
-        for(j=0; j<=n; j++)
-        {
-            cout << c[i][j] << "   ";
-        }
-        cout << endl;
+
+    string res;
+    int k = 0, i = m, j = n;
+    
+    while (C[i][j]) {
+        if (X[i-1] == Y[j-1]) 
+            res += X[i-1],i--, j--;
+        else 
+            (C[i][j-1] >= C[i-1][j]) ? j-- : i--;
     }
- 
-    char sub[100];
-    int k=0;
-    i=m;
-    j=n;
- 
-    while(c[i][j])
-    {
-        if(X[i-1] == Y[j-1])
-        {
-            sub[k]=X[i-1];
-            i--;
-            j--;
-            k++;
-        }
-        else if(c[i][j-1] >= c[i-1][j])
-        {
-            j--;
-        }
-        else
-        {
-            i--;
-        }
-    }
- 
-    cout << "String: " << strrev(sub);
- 
-    return 0;
+
+    // res[k] = '\0'; 
+
+    cout << (res) << endl;
 }
